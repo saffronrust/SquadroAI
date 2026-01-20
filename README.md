@@ -16,4 +16,17 @@ Run `python main.py`, and select what game mode you would like.
 2. Human vs Human
 3. AI vs AI
 
+## Telegram Bot Functionality
+You can also convert this into a Telegram bot. Here's how to do it.
+1. Open Telegram and search for @BotFather.
+2. Send the message /newbot.
+3. Follow the instructions and name your bot.
+4. Copy the HTTP API Token provided by BotFather.
+5. Create a `.env` file containing your token:
+```
+TELEGRAM_BOT_TOKEN='YOUR_TOKEN_HERE'
+```
+6. Run `python telegram_bot.py`.
+7. Open your bot in Telegram and type `/start`.
+
 Have fun!
