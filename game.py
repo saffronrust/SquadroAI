@@ -25,17 +25,41 @@ class SquadroBoard:
         return n
 
     def get_state_vector(self):
-        """Converts board to a tensor input for the Neural Net."""
-        # Normalize inputs approx between -1 and 1 or 0 and 1
-        state = []
-        state.extend([p/6.0 for p in self.p1_pos])
-        state.extend([p/6.0 for p in self.p2_pos])
-        state.extend(self.p1_dir)
-        state.extend(self.p2_dir)
-        state.extend(self.p1_fin)
-        state.extend(self.p2_fin)
-        state.append(1.0 if self.turn == 1 else -1.0)
-        return np.array(state, dtype=np.float32)
+            """
+            Converts board to a (5, 5, 5) spatial tensor for the ResNet.
+            Shape: [Channels, Height, Width]
+            """
+            # We create 5 planes of 5x5
+            # Plane 0: P1 Positions (Row-wise fill)
+            # Plane 1: P2 Positions (Col-wise fill)
+            # Plane 2: P1 Directions
+            # Plane 3: P2 Directions
+            # Plane 4: Player Turn (All 1 if P1, All -1 if P2)
+            
+            state = np.zeros((5, 5, 5), dtype=np.float32)
+            
+            for r in range(5):
+                # Fill entire row r with P1's position status (0.0 to 1.0)
+                # We map 0-6 range to 0.0-1.0
+                val = self.p1_pos[r] / 6.0
+                state[0, r, :] = val
+                
+                # Fill entire row r with P1's direction (1 or -1)
+                state[2, r, :] = self.p1_dir[r]
+
+            for c in range(5):
+                # Fill entire col c with P2's position status
+                val = self.p2_pos[c] / 6.0
+                state[1, :, c] = val
+                
+                # Fill entire col c with P2's direction
+                state[3, :, c] = self.p2_dir[c]
+
+            # Turn Plane
+            turn_val = 1.0 if self.turn == 1 else -1.0
+            state[4, :, :] = turn_val
+
+            return state
 
     def get_legal_moves(self):
         if self.winner: return []

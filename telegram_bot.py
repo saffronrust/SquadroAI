@@ -15,7 +15,9 @@ from mcts import NeuralMCTS
 load_dotenv()
 TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 DEVICE = torch.device("cpu") # CPU is usually sufficient for bot inference
-MODEL_PATH = "squadro_net.pth"
+# MODEL_PATH = "squadro_net.pth"
+# for the more advanced neural net:
+MODEL_PATH = "squadro_best.pth"
 
 # Enable logging
 logging.basicConfig(

@@ -8,7 +8,9 @@ from mcts import NeuralMCTS
 from interface import print_board
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-MODEL_PATH = "squadro_net.pth"
+# MODEL_PATH = "squadro_net.pth"
+# for the more advanced neural net:
+MODEL_PATH = "squadro_best.pth"
 
 def load_ai():
     """Helper to load the model safely."""
