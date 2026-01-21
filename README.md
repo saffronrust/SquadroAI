@@ -2,7 +2,7 @@
 An AI for the board game Squadro using Monte Carlo Tree Search and reinforcement learning.
 
 ## Setup
-Run `pip install requirements.txt` to install the necessary dependencies.
+Run `pip install -r requirements.txt` to install the necessary dependencies.
 
 ## Training the AI
 Run `python train.py`, then choose the number of games you want to train it on, a good number would be 500, but you can choose any number you like.
